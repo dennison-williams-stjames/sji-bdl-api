@@ -155,7 +155,7 @@ module.exports = {
   },
   {
     _id: adminTwo,
-    email: 'test@test.com',
+    email: 'testingAuth@test.com',
     password: '123456'
   }]
 };

@@ -1,7 +1,7 @@
 const assert = require('assert');
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../../app');
+const app = require('../../app').app;
 const dummyReports = require('./dummy_data');
 
 const Report = mongoose.model('report');
@@ -17,6 +17,7 @@ describe('Reports controller', () => {
       .then(() => {
         request(app)
           .get('/api/reports')
+	  .expect(200)
           .end((err, res) => {
             assert(res.body.length === 1);
             assert(res.body[0].title === 'Listen seeing you got ritualistic');
@@ -135,7 +136,7 @@ describe('Reports controller', () => {
           .get('/api/reports/near?lng=122.2741&lat=37.8015')
           .end((err, res) => {
             assert(res.body.length === 1);
-            assert(res.body[0].obj.city === 'Oakland');
+            assert(res.body[0].city === 'Oakland');
             done();
           });
       });

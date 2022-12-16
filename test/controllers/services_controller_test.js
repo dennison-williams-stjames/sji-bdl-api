@@ -1,7 +1,7 @@
 const assert = require('assert');
 const request = require('supertest');
 const mongoose = require('mongoose');
-const app = require('../../app');
+const app = require('../../app').app;
 const dummyServices = require('./dummy_data');
 
 const Service = mongoose.model('service');

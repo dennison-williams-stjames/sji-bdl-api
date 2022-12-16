@@ -9,12 +9,17 @@ module.exports = {
   nearMe(req, res, next) {
     const { lng, lat } = req.query;
 
-    Report.geoNear(
-      { type: 'Point', coordinates: [parseFloat(lng), parseFloat(lat)] },
-      { spherical: true, maxDistance: 2000 }
-    )
-    .then((reports) => res.send(reports))
-    .catch(next);
+    Report.aggregate([ {
+      $geoNear: {
+        near: { type: "Point", coordinates: [ parseFloat(lng) , parseFloat(lat) ] },
+        distanceField: "dist.calculated",
+        maxDistance: 2000,
+        includeLocs: "dist.location",
+        spherical: true
+      }
+    } ])
+    .then(reports => res.send(reports))
+    .catch(next)
   },
 
   getAllEditedReports(req, res, next) {

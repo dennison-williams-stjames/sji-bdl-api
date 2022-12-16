@@ -33,6 +33,8 @@ const AdminSchema = new Schema({
       required: true
     }
   }]
+}, {
+  usePushEach: true
 });
 
 AdminSchema.methods.toJSON = function () {

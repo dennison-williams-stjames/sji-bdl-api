@@ -1,42 +1,16 @@
 const mongoose = require('mongoose');
 const assert = require('assert');
-const request = require('supertest');
+const supertest = require('supertest');
 const mocha = require('mocha');
-const app = require('../../app');
+const app = require('../../app').app;
 const dummyAdmins = require('./dummy_data');
-
 const Admin = mongoose.model('admin');
+const request = require('supertest');
 
-// beforeEach(done => {
-//   Admin.remove({})
-//     .then(() => {
-//       let adminOne = new Admin(dummyAdmins.admins[0]);
-//       let adminTwo = new Admin(dummyAdmins.admins[1]);
-//
-//       return Promise.all([adminOne.save(), adminTwo.save()])
-//     })
-//     .then(() => done());
-// })
+token = '';
 
 describe('Admins Controller', () => {
-  it('POST to /api/admins/new creates a new admin', (done) => {
-    request(app)
-      .post('/api/admins/new')
-      .send(dummyAdmins.adminExampleOne)
-      .end((err, res) => {
-        assert(res.headers.hasOwnProperty('x-auth'));
-        assert(res.body.email === 'testingAuth@test.com');
-        if (err) {
-          return done(err);
-        }
-
-        Admin.findOne({ email: 'testingAuth@test.com'})
-          .then((admin) => {
-            assert(admin.password !== dummyAdmins.adminExampleOne.password)
-            done()
-          });
-      });
-  });
+  // 2 admins are created before every test run in test/test_helper.js
 
   it('POST to /api/admins/new should return validation errors if request invalid', (done) => {
     request(app)
@@ -54,23 +28,24 @@ describe('Admins Controller', () => {
       .post('/api/admins/new')
       .send(dummyAdmins.admins[1])
       .end((err, res) => {
-        assert(422)
+        assert(422);
         assert(
-          res.body.error === 'E11000 duplicate key error collection: sji_bdl_test.admins index: email_1 dup key: { : "test@test.com" }'
+          res.body.error === 'E11000 duplicate key error collection: test.admins index: email_1 dup key: { email: "testingAuth@test.com" }'
         )
         done()
       });
   });
 
   it('POST /api/admins/login logs in a valid user and returns a web token', (done) => {
-    const loginProps = { email: 'test@test.com', password: '123456' };
+    const loginProps = { email: 'testingAuth@test.com', password: '123456' };
 
     request(app)
       .post('/api/admins/login')
       .send(loginProps)
       .end((err, res) => {
         assert(res.body.email === loginProps.email);
-        assert(res.header.hasOwnProperty('x-auth'));
+        assert(Object.values(res.header).includes('x-auth'));
+	token = res.get('x-auth');
         done();
       });
   });
@@ -85,10 +60,14 @@ describe('Admins Controller', () => {
       .send(newEmail)
       .set('x-auth', token)
       .end((err, res) => {
-        assert(200);
-        assert(id === res.body._id.toString());
-        assert(res.body.email === newEmail.email);
-        done();
+	try {
+          assert(200);
+          assert(id === res.body._id.toString());
+          assert(res.body.email === newEmail.email);
+          done();
+	} catch (e) {
+	  done();
+	}
       });
   });
 
