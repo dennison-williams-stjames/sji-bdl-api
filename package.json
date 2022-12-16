@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && nodemon --exec 'mocha --recursive -R min || exit 1'"
+    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && nodemon --exec 'mocha --recursive -R min --ignore \"test/controllers/dummy_data*\" || exit 1'"
   },
   "engines": {
     "node": "6.2.1"
