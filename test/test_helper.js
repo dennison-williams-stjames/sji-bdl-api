@@ -3,15 +3,6 @@ const dummyAdmins = require('./controllers/dummy_data');
 
 const Admin = mongoose.model('admin');
 
-before(done => {
-	mongoose.connect(process.env.MONGODB_URI);
-  mongoose.connection
-    .once('open', () => done())
-    .on('error', err => {
-      console.warn('Warning', err);
-    });
-});
-
 beforeEach(done => {
   const { reports, services, admins } = mongoose.connection.collections;
   reports.drop()
@@ -36,4 +27,11 @@ beforeEach(done => {
       return Promise.all([adminOne.save(), adminTwo.save()])
     })
     .then(() => done());
-})
+});
+
+after(done => {
+  mongoose.models = {};
+  mongoose.modelSchemas = {};
+  mongoose.connection.close();
+  done();
+});
