@@ -23,11 +23,9 @@ const allowCrossDomain = (req, res, next) => {
 
 // Change to ES6 Promise library
 mongoose.Promise = global.Promise;
-if (process.env.NODE_ENV !== 'test') {
-  mongoose.connect(process.env.MONGODB_URI, {
-  	useMongoClient: true
-  });
-};
+mongoose.connect(process.env.MONGODB_URI, {
+  useMongoClient: true
+});
 
 app.use(allowCrossDomain);
 app.use(bodyParser.json());
