@@ -29,10 +29,9 @@ describe('Admins Controller', () => {
       .send(dummyAdmins.admins[1])
       .end((err, res) => {
         assert(422);
-        assert(
-          res.body.error === 'E11000 duplicate key error collection: test.admins index: email_1 dup key: { email: "testingAuth@test.com" }'
-        )
-        done()
+	var dupEmailRegExp = /E11000 dup.*admins.*testingAuth/;
+        assert( dupEmailRegExp.test(res.body.error) );
+        done();
       });
   });
 
