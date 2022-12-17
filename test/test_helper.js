@@ -2,31 +2,35 @@ const mongoose = require('mongoose');
 const dummyAdmins = require('./controllers/dummy_data');
 
 const Admin = mongoose.model('admin');
+const Service = mongoose.model('service');
+const Report = mongoose.model('report');
 
-beforeEach(done => {
-  const { reports, services, admins } = mongoose.connection.collections;
-  reports.drop()
-    .then(() => {
-      reports.ensureIndex({ 'editedReport.content': 'text',
-                            'editedReport.title': 'text'
-                          })
-      reports.ensureIndex({ 'geolocation.coordinates': '2dsphere' })
-    })
-    .then(() => services.drop())
-    .then(() => services.ensureIndex({ name: 'text' }))
-    .then(() => done())
-    .catch(() => done());
-});
+beforeEach(async function() {
 
-beforeEach(done => {
-  Admin.remove({})
-    .then(() => {
-      let adminOne = new Admin(dummyAdmins.admins[0]);
-      let adminTwo = new Admin(dummyAdmins.admins[1]);
+  Report.remove({})
+    .then((err, result)=> { 
+      done();
+    });
 
-      return Promise.all([adminOne.save(), adminTwo.save()])
-    })
-    .then(() => done());
+  Service.remove({})
+    .then(()=> {
+      done();
+    });
+
+  await Admin.remove({})
+    .then(function() {
+    });
+
+    let adminOne = new Admin(dummyAdmins.admins[0]);
+    let adminTwo = new Admin(dummyAdmins.admins[1]);
+
+    adminOne.save()
+      .then(() => { 
+      });
+
+    await adminTwo.save()
+      .then(() => { 
+      });
 });
 
 after(done => {
