@@ -21,10 +21,29 @@ const allowCrossDomain = (req, res, next) => {
   }
 };
 
+const MONGO_USERNAME = process.env.MONGO_USERNAME || 'sji-bdl-api';
+const MONGO_PASSWORD = process.env.MONGO_PASSWORD || 'sji-bdl-api';
+const MONGO_HOSTNAME = process.env.MONGO_HOSTNAME || 'localhost';
+const MONGO_PORT = process.env.MONGO_PORT || 27017;
+const MONGO_DB = process.env.MONGO_DB || 'sji-bdl';
+const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+
+const options = {
+  useMongoClient: true,
+  useNewUrlParser: true,
+  reconnectTries: Number.MAX_VALUE,
+  reconnectInterval: 500,
+  connectTimeoutMS: 10000,
+};
+
 // Change to ES6 Promise library
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, {
-  useMongoClient: true
+mongoose.connect(url, options)
+.then( function() {
+   console.debug('MongoDB is connected');
+} )
+.catch (function(err) { 
+   console.log(err);
 });
 
 app.use(allowCrossDomain);

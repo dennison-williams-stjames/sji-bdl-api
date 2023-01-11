@@ -15,6 +15,7 @@
     "url": "git+https://github.com/spencerdezartsmith/sji-bdl-api.git"
   },
   "author": "Spencer Dezart-Smith & Diana Vashti",
+  "author": "Dennison Williams <dennison.williams@stjamesinfirmary.org>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/spencerdezartsmith/sji-bdl-api/issues"
@@ -28,6 +29,7 @@
     "lodash": "^4.17.4",
     "mocha": "^10.2.0",
     "mongoose": "^4.10.2",
+    "nodemon": "^2.0.20",
     "supertest": "^3.0.0",
     "validator": "^7.0.0"
   },
