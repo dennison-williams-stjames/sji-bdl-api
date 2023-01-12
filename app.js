@@ -29,11 +29,9 @@ const MONGO_DB = process.env.MONGO_DB || 'sji-bdl';
 const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 
 const options = {
-  useMongoClient: true,
   useNewUrlParser: true,
-  reconnectTries: Number.MAX_VALUE,
-  reconnectInterval: 500,
   connectTimeoutMS: 10000,
+  useUnifiedTopology: true
 };
 
 // Change to ES6 Promise library
