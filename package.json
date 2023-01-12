@@ -8,7 +8,7 @@
     "test": "export NODE_ENV=test JWT_SECRET=test && nodemon --exec 'mocha --recursive --ignore \"test/controllers/dummy_data*\" || exit 1'"
   },
   "engines": {
-    "node": "6.2.1"
+    "node": "^19.0.0"
   },
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "mocha": "^10.2.0",
-    "mongoose": "^4.10.2",
+    "mongoose": "^5.4.2",
     "nodemon": "^2.0.20",
     "supertest": "^3.0.0",
     "validator": "^7.0.0"
