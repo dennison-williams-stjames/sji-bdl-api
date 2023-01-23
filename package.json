@@ -15,12 +15,14 @@
     "url": "git+https://github.com/spencerdezartsmith/sji-bdl-api.git"
   },
   "author": "Spencer Dezart-Smith & Diana Vashti",
-  "author": "Dennison Williams <dennison.williams@stjamesinfirmary.org>",
+  "contributors": [
+    "Dennison Williams <dennison.williams@stjamesinfirmary.org> (https://dennisonwilliams.com)"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/spencerdezartsmith/sji-bdl-api/issues"
+    "url": "https://github.com/dennison-williams-stjames/sji-bdl-api/issues"
   },
-  "homepage": "https://github.com/spencerdezartsmith/sji-bdl-api#readme",
+  "homepage": "https://github.com/dennison-williams-stjames/sji-bdl-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
@@ -29,6 +31,7 @@
     "lodash": "^4.17.4",
     "mocha": "^10.2.0",
     "mongoose": "^5.4.2",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.20",
     "supertest": "^3.0.0",
     "validator": "^7.0.0"
