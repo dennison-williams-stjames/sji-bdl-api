@@ -59,3 +59,6 @@ typings/
 
 # env variable
 config/config.json
+
+token.json
+credentials.json
