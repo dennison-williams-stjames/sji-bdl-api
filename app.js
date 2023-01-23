@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes/routes');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const app = express();
 
 const allowCrossDomain = (req, res, next) => {
@@ -26,7 +27,7 @@ const MONGO_PASSWORD = process.env.MONGO_PASSWORD || 'sji-bdl-api';
 const MONGO_HOSTNAME = process.env.MONGO_HOSTNAME || 'localhost';
 const MONGO_PORT = process.env.MONGO_PORT || 27017;
 const MONGO_DB = process.env.MONGO_DB || 'sji-bdl';
-const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
+const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=${MONGO_DB}`;
 
 const options = {
   useNewUrlParser: true,
@@ -41,11 +42,13 @@ mongoose.connect(url, options)
    console.debug('MongoDB is connected');
 } )
 .catch (function(err) { 
+   console.error('MongoDB did not connect: '+ url);
    console.log(err);
 });
 
 app.use(allowCrossDomain);
 app.use(bodyParser.json());
+app.use(morgan('combined'));
 routes(app);
 
 app.use((err, req, res, next) => {
