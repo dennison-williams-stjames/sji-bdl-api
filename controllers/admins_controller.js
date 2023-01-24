@@ -25,6 +25,7 @@ module.exports = {
           })
       })
       .catch((error) => {
+	console.error('error: '+ error);
         res.status(400).send();
       });
   },

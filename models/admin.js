@@ -96,7 +96,13 @@ AdminSchema.statics.findByCredentials = function (email, password) {
 
       return new Promise((resolve, reject) => {
         bcrypt.compare(password, admin.password, (err, res) => {
-          res ? resolve(admin) : reject();
+          if (res) { 
+	    console.info(`${email} authenticated`);
+	    resolve(admin);
+	  } else {
+	    console.info(`${email} authentication failed`);
+	    reject();
+	  }
         })
       })
     });
