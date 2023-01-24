@@ -14,4 +14,5 @@ process.env.MONGO_PASSWORD - The MongoDB password. default: 'sji-bdl-api'
 process.env.MONGO_HOSTNAME - The MongoDB hostname. default: 'localhost'
 process.env.MONGO_PORT - The MongoDB port. default: 27017
 process.env.MONGO_DB - The MongoDB database. default: 'sji-bdl'
-process.env.JWT_SECRET
+process.env.JWT_SECRET - Security has used by the admin model for hashing 
+  credentials.  This must be set!

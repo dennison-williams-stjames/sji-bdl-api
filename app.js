@@ -46,6 +46,11 @@ mongoose.connect(url, options)
    console.log(err);
 });
 
+if (! process.env.JWT_SECRET ) {
+  console.warn('JWT_SECRET set to default is a security issue');
+  process.env.JWT_SECRET = 'sji-bdl';
+}
+
 app.use(allowCrossDomain);
 app.use(bodyParser.json());
 app.use(morgan('combined'));
