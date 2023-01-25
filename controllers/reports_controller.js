@@ -104,4 +104,30 @@ module.exports = {
       })
       .catch(next);
   },
+
+  adminSearchReports(req, res, next) {
+    const criteria = req.query;
+    let editedReports;
+
+    Report.find(helpers.buildQueryAdminReports(criteria))
+      .then((reports) => {
+        editedReports = reports.map((report) => {
+	  console.debug(report);
+          let newObj = {};
+	  if (typeof report.editedReport !== 'undefined') {
+            newObj['title'] = report.editedReport.title;
+            newObj['content'] = report.editedReport.content || '';
+            newObj['id'] = report.editedReport._id;
+	  } else {
+            newObj['id'] = report._id;
+	  }
+          newObj['date'] = new Date(report.date).toDateString();
+          newObj['coordinates'] = report.geolocation.coordinates;
+
+          return newObj
+        })
+        res.send(editedReports)
+      })
+      .catch(next);
+  },
 };

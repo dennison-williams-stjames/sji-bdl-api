@@ -42,6 +42,9 @@ module.exports = (app) => {
   // Admin read all new unedited reports
   app.get('/api/admins/reports', authenticate, ReportsController.adminReadNewReports);
 
+  // Admin read all reports
+  app.get('/api/admins/reports/search', authenticate, ReportsController.adminSearchReports);
+
   // Admin can read one report
   app.get('/api/reports/:id', authenticate, ReportsController.adminReadOneReport);
 
