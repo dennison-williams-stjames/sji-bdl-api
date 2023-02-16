@@ -6,29 +6,29 @@ const EditedReportSchema = require('./edited_report_schema');
 const SupportSchema = require('./support_schema');
 
 const ReportSchema = new Schema({
-	city: {
-		type: String,
-		required: true
-	},
-	locationType: {
-		type: String,
-		required: true
-	},
-	geolocation: PointSchema,
-	gender: {
+  city: {
     type: String,
     required: true
   },
-	date: {
+  locationType: {
+    type: String,
+    required: true
+  },
+  geolocation: PointSchema,
+  gender: {
+    type: String,
+    required: true
+  },
+  date: {
     type: Date,
     required: true
   },
-	assaultType: [String],
-	assaultDescription: {
+  assaultType: [String],
+  assaultDescription: {
     type: String,
     required: true
   },
-	perpetrator: PerpSchema,
+  perpetrator: PerpSchema,
   edited: {
     type: Boolean,
     default: false

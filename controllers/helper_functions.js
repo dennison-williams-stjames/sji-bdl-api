@@ -6,13 +6,13 @@ module.exports = {
     }
 
     if (criteria.name) {
-      query["perpetrator.name"] = { $regex: criteria.name, $options: "i" };
+      query["perpetrator.name"] = criteria.name;
     }
 
     if (criteria.date) {
       // TODO: we should only include the timezone if it is not included
-      var g = new Date(new Date(criteria.date +' PST').setHours(00, 00, 00));
-      var l = new Date(new Date(criteria.date +' PST').setHours(23, 59, 59));
+      var g = new Date(new Date(criteria.date ).setHours(00, 00, 00));
+      var l = new Date(new Date(criteria.date ).setHours(23, 59, 59));
       query.date = {
         $gte: g,
         $lte: l
