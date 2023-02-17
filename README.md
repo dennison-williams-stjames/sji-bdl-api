@@ -5,6 +5,8 @@ be running alongside the corresponding [webapp](https://github.com/dennison-will
 
 Configureation variables are expected to be set in .env files and passed to docker.  Running the complete environment can be acchieved with the [sji-bdl-deployment](https://github.com/dennison-williams-stjames/sji-bdl-deployment) docker-compose.
 
+St. James Infirmary is looking for volunteer contributers to resolve [issues with this project](https://github.com/dennison-williams-stjames/sji-bdl-api/issues).  Please [add an issue](https://github.com/dennison-williams-stjames/sji-bdl-api/issues/new) if you need development support.
+
 ## Configuration variables
 process.env.NODE_ENV - The node environment. default: 'development'  
 process.env.API_PORT - The port the API should listen on. default: 3001  
