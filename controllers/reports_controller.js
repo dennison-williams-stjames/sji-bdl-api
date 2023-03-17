@@ -25,6 +25,7 @@ module.exports = {
   getAllEditedReports(req, res, next) {
     let editedReports;
     Report.find({ edited: true })
+      .sort({ 'date': "desc" })
       .then((reports) => {
         editedReports = reports.map((report) => {
           let newObj = {};
